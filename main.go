@@ -1,23 +1,34 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"strings"
-)
+import "InterfaceGenerator/generate"
+import "fmt"
 
 func main() {
-	proto := `1233213
-	123
-	31
-	31
-	3123
-	`
+	str := `
+# 用户实体
+type User{
+	int id
+	string name
+}
 
-	reader := strings.NewReader(proto)
-	scanner := bufio.NewScanner(reader)
+# 产品实体
+type Product{
+	int id
+	string name
+	User user
+}`
 
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+	parser := generate.NewProtoParser()
+	types, _ := parser.Parse(str)
+
+	err := recover()
+
+	if err != nil {
+		fmt.Println(err)
 	}
+
+	for _, t := range types {
+		fmt.Println(t)
+	}
+
 }

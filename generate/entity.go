@@ -11,14 +11,20 @@ type FieldDef struct {
 	Name       string
 	FieldType  string
 	Required   bool
-	Comment    string
+	Comment    []string
 	Attributes []AttributeDef
 }
 
 //TypeDef 类型实体
 type TypeDef struct {
 	Name       string
-	Comment    string
+	Comment    []string
 	Fields     []FieldDef
 	Attributes []AttributeDef
+}
+
+func NewTypeDef(fieldCount int) TypeDef {
+	typeDef := TypeDef{}
+	typeDef.Fields = make([]FieldDef, fieldCount)
+	return typeDef
 }
